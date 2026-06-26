@@ -1,0 +1,82 @@
+body{
+  margin:0;
+  background:black;
+  font-family:Arial;
+}
+
+.container{
+  display:flex;
+  justify-content:center;
+  padding:30px;
+}
+
+.card{
+  width:450px;
+  padding:30px;
+  background:#111;
+  border-radius:20px;
+  box-shadow:0 0 25px cyan;
+}
+
+h1{
+  text-align:center;
+  color:cyan;
+  text-shadow:0 0 15px cyan;
+}
+
+input{
+  width:100%;
+  margin:8px 0;
+  padding:12px;
+  background:#222;
+  border:none;
+  border-radius:8px;
+  color:white;
+}
+
+button{
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  background:cyan;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
+
+.result-box,.resume-box{
+  margin-top:20px;
+  padding:20px;
+  border:1px solid cyan;
+  border-radius:15px;
+  box-shadow:0 0 10px cyan;
+}
+
+.score{
+  text-align:center;
+  color:#00ff99;
+  font-size:40px;
+}
+
+.status{
+  text-align:center;
+  color:white;
+  font-size:22px;
+}
+
+.section{
+  margin-top:15px;
+}
+
+.tag{
+  background:#222;
+  padding:8px;
+  border-radius:8px;
+  margin:5px 0;
+  color:white;
+  text-align:center;
+}
+
+h2,h3{
+  color:cyan;
+}
