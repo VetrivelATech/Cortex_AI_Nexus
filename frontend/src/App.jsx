@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import UploadResume from "./components/UploadResume";
+import GithubAnalyzer from "./components/GithubAnalyzer";
 
 function App() {
   const [form, setForm] = useState({

@@ -1,102 +1,43 @@
-# engines/skill_gap_engine.py
-
-from typing import Dict, List
-
-
 class SkillGapEngine:
-    """
-    Skill Gap Engine compares current skills with
-    target job/company skill requirements.
-    """
 
-    def __init__(
-        self,
-        current_skills: Dict[str, int],
-        required_skills: Dict[str, int]
-    ):
-        self.current_skills = current_skills
-        self.required_skills = required_skills
+    def __init__(self):
+        # predefined role skills
+        self.role_skills = {
+            "ai engineer": [
+                "python", "machine learning", "deep learning",
+                "tensorFlow", "sql", "docker", "aws"
+            ],
 
-    def find_missing_skills(self) -> List[str]:
-        """
-        Detect skills below required level.
-        """
+            "data scientist": [
+                "python", "pandas", "numpy",
+                "machine learning", "sql", "tableau"
+            ],
+
+            "ml engineer": [
+                "python", "machine learning",
+                "tensorFlow", "docker", "aws", "git"
+            ]
+        }
+
+    def analyze_skill_gap(self, target_role, user_skills):
+
+        target_role = target_role.lower()
+
+        required_skills = self.role_skills.get(target_role, [])
 
         missing_skills = []
 
-        for skill, required_level in self.required_skills.items():
-            current_level = self.current_skills.get(skill, 0)
-
-            if current_level < required_level:
+        for skill in required_skills:
+            if skill.lower() not in [s.lower() for s in user_skills]:
                 missing_skills.append(skill)
 
-        return missing_skills
-
-    def calculate_readiness_score(self) -> float:
-        """
-        Calculate percentage readiness for target role.
-        """
-
-        total_required = sum(self.required_skills.values())
-        total_current = 0
-
-        for skill, required_level in self.required_skills.items():
-            current_level = self.current_skills.get(skill, 0)
-
-            # cap current skill at required level
-            total_current += min(current_level, required_level)
-
-        readiness_score = (total_current / total_required) * 100
-        return round(readiness_score, 2)
-
-    def improvement_priority(self) -> Dict[str, int]:
-        """
-        Calculate how much improvement needed per skill.
-        """
-
-        priority = {}
-
-        for skill, required_level in self.required_skills.items():
-            current_level = self.current_skills.get(skill, 0)
-
-            if current_level < required_level:
-                priority[skill] = required_level - current_level
-
-        return priority
-
-    def generate_skill_report(self) -> Dict:
-        """
-        Final skill analysis report.
-        """
+        readiness_score = int(
+            ((len(required_skills) - len(missing_skills))
+             / len(required_skills)) * 100
+        )
 
         return {
-            "readiness_score": self.calculate_readiness_score(),
-            "missing_skills": self.find_missing_skills(),
-            "improvement_priority": self.improvement_priority()
+            "target_role": target_role,
+            "missing_skills": missing_skills,
+            "readiness_score": readiness_score
         }
-
-
-# Example test run
-if __name__ == "__main__":
-
-    current_skills = {
-        "python": 8,
-        "dsa": 4,
-        "system_design": 2,
-        "backend": 5
-    }
-
-    required_skills = {
-        "python": 8,
-        "dsa": 8,
-        "system_design": 7,
-        "backend": 7
-    }
-
-    engine = SkillGapEngine(
-        current_skills=current_skills,
-        required_skills=required_skills
-    )
-
-    report = engine.generate_skill_report()
-    print(report)
